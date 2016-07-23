@@ -4,20 +4,22 @@ const config = require('./config');
 
 const socketHost = config.board.hostname;
 
-const socket = net.connect({
-  host: socketHost,
-  port: 3030,
-});
-
-socket.on('connect', () => {
-  socket.emit('open', null);
-});
-
-const board = new five.Board({
-  port: socket
-});
 
 module.exports = () => new Promise((resolve) => {
+  const socket = net.connect({
+    host: socketHost,
+    port: 3030,
+  });
+
+  socket.on('connect', () => {
+    socket.emit('open', null);
+  });
+
+  const board = new five.Board({
+    id: 'killbot',
+    port: socket
+  });
+
   board.on('ready', function () {
     console.log('Board ready!')
     resolve({
@@ -25,4 +27,8 @@ module.exports = () => new Promise((resolve) => {
       board: this,
     })
   });
+
+  board.on('error', (err) => {
+    console.log(err);
+  })
 });

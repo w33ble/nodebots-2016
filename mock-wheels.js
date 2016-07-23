@@ -1,16 +1,18 @@
-module.exports = (five) => {
+module.exports = () => {
   console.log('Initialize wheels');
   const wheels = {};
 
-  wheels.left = new five.Servo({
-    pin: 4,
-    type: 'continuous'
-  }).stop();
+  wheels.left = {
+    cw(speed) { console.log('LEFT', 'CW', speed) },
+    ccw(speed) { console.log('LEFT', 'CCW', speed) },
+    stop() { console.log('LEFT', 'STOP') },
+  }
 
-  wheels.right = new five.Servo({
-    pin: 5,
-    type: 'continuous'
-  }).stop();
+  wheels.right = {
+    cw(speed) { console.log('RIGHT', 'CW', speed) },
+    ccw(speed) { console.log('RIGHT', 'CCW', speed) },
+    stop() { console.log('RIGHT', 'STOP') },
+  }
 
   return {
     forward(speed) {
@@ -25,11 +27,11 @@ module.exports = (five) => {
 
     left(speed) {
       wheels.left.cw(speed);
-      wheels.right.stop();
+      wheels.right.ccw(speed / 2);
     },
 
     right(speed) {
-      wheels.left.stop();
+      wheels.left.cw(speed / 2);
       wheels.right.ccw(speed);
     },
 

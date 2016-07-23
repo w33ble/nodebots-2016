@@ -14,20 +14,25 @@ class Gamepad extends EventEmitter {
     super();
 
     controller.connect();
-    controller.on('up:press', () => this.emit('input', 'up'));
-    controller.on('down:press', () => this.emit('input', 'down'));
-    controller.on('left:press', () => this.emit('input', 'left'));
-    controller.on('right:press', () => this.emit('input', 'right'));
+    controller.on('up:press', () => this.emit('press', 'up'));
+    controller.on('down:press', () => this.emit('press', 'down'));
+    controller.on('left:press', () => this.emit('press', 'left'));
+    controller.on('right:press', () => this.emit('press', 'right'));
 
-    controller.on('x:press', () => this.emit('input', 'x'));
-    controller.on('y:press', () => this.emit('input', 'y'));
-    controller.on('a:press', () => this.emit('input', 'a'));
-    controller.on('b:press', () => this.emit('input', 'b'));
-    controller.on('l:press', () => this.emit('input', 'l'));
-    controller.on('r:press', () => this.emit('input', 'r'));
+    controller.on('up:release', () => this.emit('release', 'up'));
+    controller.on('down:release', () => this.emit('release', 'down'));
+    controller.on('left:release', () => this.emit('release', 'left'));
+    controller.on('right:release', () => this.emit('release', 'right'));
 
-    controller.on('start:press', () => this.emit('input', 'start'));
-    controller.on('select:press', () => this.emit('input', 'select'));
+    controller.on('x:press', () => this.emit('press', 'X'));
+    controller.on('y:press', () => this.emit('press', 'Y'));
+    controller.on('a:press', () => this.emit('press', 'A'));
+    controller.on('b:press', () => this.emit('press', 'B'));
+    controller.on('l:press', () => this.emit('press', 'L'));
+    controller.on('r:press', () => this.emit('press', 'R'));
+
+    controller.on('start:press', () => this.emit('press', 'start'));
+    controller.on('select:press', () => this.emit('press', 'select'));
   }
 }
 
