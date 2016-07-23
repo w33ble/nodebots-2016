@@ -1,22 +1,10 @@
-const net = require('net');
-const five = require('johnny-five');
+const bootup = require('./bootup');
 
-const socketHost = 'ESPxxxxxx.local';
+bootup().then(({ five }) => {
+  const led12 = new five.Led(12);
+  const led13 = new five.Led(13);
+  const delay = 500;
 
-const socket = net.connect({
-  host: socketHost,
-  port: 3030,
-});
-
-socket.on('connect', () => {
-  socket.emit('open', null);
-});
-
-const board = new five.Board({
-  port: socket
-});
-
-board.on('ready', () => {
-  const led = new five.Led(13);
-  led.blink(500);
+  setTimeout(() => led12.blink(delay), delay);
+  led13.blink(delay);
 });
