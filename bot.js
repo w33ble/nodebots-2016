@@ -25,7 +25,7 @@ bot()
   function getSpeed(type, forceForward) {
     let speed;
 
-    if (type === 'low') speed = (0.4 * speedMultiplier);
+    if (type === 'low') speed = (0.15 * speedMultiplier);
     else if (type === 'high') speed = (1 * speedMultiplier);
     else speed = type;
 

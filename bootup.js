@@ -30,5 +30,6 @@ module.exports = () => new Promise((resolve) => {
 
   board.on('error', (err) => {
     console.log(err);
+    throw err;
   })
 });
