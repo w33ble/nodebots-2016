@@ -1,8 +1,8 @@
 const net = require('net');
 const five = require('johnny-five');
-const boardInfo = require('./board');
+const config = require('./config');
 
-const socketHost = boardInfo.hostname;
+const socketHost = config.board.hostname;
 
 const socket = net.connect({
   host: socketHost,
