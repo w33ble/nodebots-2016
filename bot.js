@@ -1,23 +1,21 @@
 const bootup = require('./bootup');
 const initWheels = require('./wheels');
-const initWheelsMock = require('./mock-wheels');
 const Gamepad = require('./gamepad');
 
-const mode = 'kill'; // set to kill to activiate
+const kill = true; // set to kill to activiate
 
 const gamepad = new Gamepad();
-const speedMultiplier = .2;
+const speedMultiplier = 1;
 
 function bot() {
-  if (mode === 'kill') return bootup();
+  if (kill) return bootup();
   return Promise.resolve({ five: false });
 }
 
 bot()
 .then(({ five }) => {
   let wheels;
-  if (mode === 'test') wheels = initWheelsMock(five);
-  if (mode !== 'test') wheels = initWheels(five);
+  wheels = initWheels(five);
 
   const state = {
     speed: 0,
@@ -28,7 +26,7 @@ bot()
     console.log('forceForward', forceForward, state);
     let speed;
 
-    if (type === 'low') speed = (0.3 * speedMultiplier);
+    if (type === 'low') speed = (0.4 * speedMultiplier);
     else if (type === 'high') speed = (1 * speedMultiplier);
     else speed = state.speed;
 
@@ -66,12 +64,12 @@ bot()
     if (button === 'right') state.command = 'right';
 
     if (button === 'up') {
-      const speed = (state.speed !== 0) ? state.speed : 'high';
+      const speed = (state.speed !== 0) ? state.speed : 'low';
       state.speed = getSpeed(speed, true);
       state.command = 'forward';
     }
     if (button === 'down') {
-      const speed = (state.speed !== 0) ? state.speed : 'high';
+      const speed = (state.speed !== 0) ? state.speed : 'low';
       state.speed = getSpeed(speed, true);
       state.command = 'backward';
     }
