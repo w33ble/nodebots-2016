@@ -38,14 +38,16 @@ module.exports = (five) => {
       wheels.right.cw(speed);
     },
 
-    left(speed) {
+    right(speed) {
       wheels.left.cw(speed);
-      wheels.right.stop();
+      // wheels.right.stop();
+      wheels.right.ccw(speed / 10);
     },
 
-    right(speed) {
-      wheels.left.stop();
+    left(speed) {
       wheels.right.ccw(speed);
+      // wheels.left.stop();
+      wheels.left.cw(speed / 10);
     },
 
     spinLeft(speed) {

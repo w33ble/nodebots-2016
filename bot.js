@@ -2,7 +2,7 @@ const bootup = require('./bootup');
 const initWheels = require('./wheels');
 const Gamepad = require('./gamepad');
 
-const kill = true; // set to kill to activiate
+const kill = process.argv[2] === '-k'; // set to kill to activiate
 
 const gamepad = new Gamepad();
 const speedMultiplier = 1;
@@ -23,14 +23,15 @@ bot()
   };
 
   function getSpeed(type, forceForward) {
-    console.log('forceForward', forceForward, state);
     let speed;
 
     if (type === 'low') speed = (0.4 * speedMultiplier);
     else if (type === 'high') speed = (1 * speedMultiplier);
-    else speed = state.speed;
+    else speed = type;
 
-    speed *= (!forceForward && state.speed < 0) ? -1 : 1;
+    if (state.speed < 0) speed *= -1;
+    if (forceForward) speed = Math.abs(speed);
+    console.log('forceForward', forceForward, speed, state);
     return speed;
   }
 
@@ -41,7 +42,7 @@ bot()
   }
 
   function stop() {
-    state.speed = 0;
+    // state.speed = 0;
     wheels.stop();
     console.log('stop!', state);
   }
