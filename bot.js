@@ -1,5 +1,6 @@
 const bootup = require('./bootup');
 const initWheels = require('./wheels');
+const initTail = require('./tail');
 const Gamepad = require('./gamepad');
 
 const kill = process.argv[2] === '-k'; // set to kill to activiate
@@ -16,6 +17,7 @@ bot()
 .then(({ five }) => {
   let wheels;
   wheels = initWheels(five);
+  //initTail(five);
 
   const state = {
     speed: 0,
